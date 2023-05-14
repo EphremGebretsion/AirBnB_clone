@@ -3,7 +3,6 @@
 import uuid
 from datetime import datetime
 
-
 class BaseModel():
     """ a class will make a model with a unique id with a time stamp"""
 
