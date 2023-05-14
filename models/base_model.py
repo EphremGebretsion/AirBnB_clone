@@ -10,6 +10,7 @@ class BaseModel():
     """ a class will make a model with a unique id with a time stamp"""
 
     def __init__(self):
+        """this is the constructor of the BaseModel"""
         self.id = str(uuid.uuid4())
         self.created_at = datetime.today()
         self.updated_at = self.created_at
