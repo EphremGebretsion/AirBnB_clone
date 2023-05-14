@@ -26,6 +26,7 @@ class BaseModelTest(unittest.TestCase):
         bb.te = "ephi"
         tes = bb.to_dict()
         self.assertEqual(tes['__class__'], 'BaseModel')
+        self.assertEqual(tes['id'], bb.id)
         self.assertIsInstance(tes['created_at'], str)
         self.assertIsInstance(tes['updated_at'], str)
         self.assertEqual(tes['te'], "ephi")
