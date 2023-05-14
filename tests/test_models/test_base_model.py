@@ -10,5 +10,6 @@ class BaseModelTest(unittest.TestCase):
         bb = BaseModel()
         self.assertEqual(type(bb.id), str)
 
+
 if __name__ == "__main__":
     unittest.main()

@@ -13,6 +13,7 @@ class BaseModel():
         self.updated_at = self.created_at
 
     def __str__(self):
+        """ returns class name id and the dictionart of the class """
         return "[BaseModel] ({}) {}".format(self.id, self.__dict__)
 
     def save(self):
