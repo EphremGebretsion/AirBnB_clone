@@ -9,3 +9,6 @@ class BaseModelTest(unittest.TestCase):
         """ tests if id is string of not """
         bb = BaseModel()
         self.assertEqual(type(bb.id), str)
+
+if __name__ == "__main__":
+    unittest.main()
