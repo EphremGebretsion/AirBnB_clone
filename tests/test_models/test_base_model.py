@@ -7,6 +7,7 @@ from datetime import datetime
 class BaseModelTest(unittest.TestCase):
     """ test class for BaseModel class"""
     def test_value(self):
+        """test the values of the time stamps"""
         bb = BaseModel()
         self.assertEqual(bb.created_at, bb.updated_at)
         bb.save()
