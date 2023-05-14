@@ -20,6 +20,16 @@ class BaseModelTest(unittest.TestCase):
         self.assertIsInstance(bb.created_at, datetime)
         self.assertIsInstance(bb.updated_at, datetime)
 
+    def test_to_dict(self):
+        """ tests if to_dict returns the right information"""
+        bb = BaseModel()
+        bb.te = "ephi"
+        tes = bb.to_dict()
+        self.assertEqual(tes['__class__'], 'BaseModel')
+        self.assertIsInstance(tes['created_at'], str)
+        self.assertIsInstance(tes['updated_at'], str)
+        self.assertEqual(tes['te'], "ephi")
+
 
 if __name__ == "__main__":
     unittest.main()
