@@ -4,6 +4,7 @@
 
 import uuid
 from datetime import datetime
+from models import storage
 
 
 class BaseModel():
@@ -24,6 +25,8 @@ class BaseModel():
                 else:
                     setattr(self, key, value)
 
+        storage.new(self)
+
     def __str__(self):
         """ returns class name id and the dictionart of the class """
         return "[BaseModel] ({}) {}".format(self.id, self.__dict__)
@@ -31,6 +34,7 @@ class BaseModel():
     def save(self):
         """ updates the updated time of the instance """
         self.updated_at = datetime.today()
+        storage.save()
 
     def to_dict(self):
         """ converts into a suitable dictionary for making a json file """

@@ -31,6 +31,17 @@ class BaseModelTest(unittest.TestCase):
         self.assertIsInstance(tes['updated_at'], str)
         self.assertEqual(tes['te'], "ephi")
 
+    def test_constructor(self):
+        """ tests the initialization of elements"""
+        bb = BaseModel()
+        bb.tes = "ephrem"
+        dic = bb.to_dict()
+        newb = BaseModel(**dic)
+        self.assertEqual(newb.tes, "ephrem")
+        self.assertEqual(newb.created_at, bb.created_at)
+        self.assertEqual(newb.updated_at, bb.updated_at)
+        self.assertEqual(newb.id, bb.id)
+
 
 if __name__ == "__main__":
     unittest.main()
