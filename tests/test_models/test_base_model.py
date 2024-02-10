@@ -18,6 +18,8 @@ class TestBaseModle(TestCase):
 
         my_base = BaseModel()
         self.assertIsInstance(my_base, BaseModel)
+        key = my_base.__class__.__name__ + "." + my_base.id
+        self.assertTrue(key in storage.all())
         self.assertTrue(hasattr(my_base, "id"))
         self.assertTrue(hasattr(my_base, "created_at"))
         self.assertTrue(hasattr(my_base, "updated_at"))
@@ -106,3 +108,5 @@ class TestBaseModle(TestCase):
         my_base = BaseModel(**d)
         key = my_base.__class__.__name__ + "." + my_base.id
         self.assertFalse(key in my_storage.all())
+        storage.new(my_base)
+        self.assertTrue(key in my_storage.all())

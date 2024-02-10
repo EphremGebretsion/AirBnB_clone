@@ -57,6 +57,10 @@ class TestFileStorage(TestCase):
         my_storage.reload()
         key = my_base.__class__.__name__ + "." + my_base.id
         self.assertTrue(key in my_storage.all())
+        my_base2 = BaseModel()
+        my_storage.reload()
+        key = my_base2.__class__.__name__ + "." + my_base2.id
+        self.assertFalse(key in my_storage.all())
 
     def test_new(self):
         """
@@ -66,4 +70,18 @@ class TestFileStorage(TestCase):
         my_base = BaseModel()
         my_base.name = "ephi"
         key = my_base.__class__.__name__ + "." + my_base.id
+        self.assertTrue(key in my_storage.all())
         self.assertTrue(hasattr(my_storage.all()[key], "name"))
+        my_storage.new(my_base)
+        self.assertTrue(key in my_storage.all())
+
+    def test_type(self):
+        """
+        tests the type stored in __objects
+        and what check __object is dict
+        """
+        my_base = BaseModel()
+        my_storage = FileStorage()
+        key = my_base.__class__.__name__ + "." + my_base.id
+        self.assertIsInstance(my_storage.all(), dict)
+        self.assertIsInstance(my_storage.all()[key], BaseModel)
