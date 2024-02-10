@@ -40,8 +40,8 @@ class BaseModel:
 
     def save(self):
         """
-        updates the class
-        and changes the updated_at to the current time
+        updates the class and saves to the file
+        also changes the updated_at to the current time
         """
         self.updated_at = datetime.now()
         storage.new(self)

@@ -23,13 +23,15 @@ class FileStorage:
     def new(self, obj):
         """
         sets in __objects the obj with key <obj class name>.id
+        used as adding and updating the __objects
         """
-        key = obj.__class__.__name__ + obj.id
+        key = obj.__class__.__name__ + "." + obj.id
         FileStorage.__objects[key] = obj.to_dict()
 
     def save(self):
         """
-        serializes __objects to the JSON file (path: __file_path)
+        serializes __objects that has been added
+        to the JSON file (path: __file_path)
         """
         with open(FileStorage.__file_path, mode="w") as my_file:
             json.dump(FileStorage.__objects, my_file)
