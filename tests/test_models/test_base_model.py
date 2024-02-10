@@ -6,6 +6,7 @@ from unittest import TestCase
 from datetime import datetime
 from models import storage
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
 class TestBaseModle(TestCase):
@@ -90,3 +91,17 @@ class TestBaseModle(TestCase):
         self.assertTrue(key2 in my_all)
         my_dict = my_all[key2]
         self.assertTrue("new" in my_dict)
+
+    def test_init_dict(self):
+        """
+        tests if file is added to storage when initialized with dictionary
+        """
+        my_storage = FileStorage()
+        d = {'id': '56d43177-cc5f-4d6c-a0c1-e167f8c27337',
+             'created_at': '2017-09-28T21:03:54.052298',
+             '__class__': 'BaseModel', 'my_number': 89,
+             'updated_at': '2017-09-28T21:03:54.052302',
+             'name': 'My_First_Model'}
+        my_base = BaseModel(**d)
+        key = my_base.__class__.__name__ + "." + my_base.id
+        self.assertFalse(key in my_storage.all())

@@ -46,3 +46,24 @@ class TestFileStorage(TestCase):
         my_store = FileStorage()
         my_store.reload()
         self.assertEqual(my_store.all(), {})
+
+    def test_save(self):
+        """
+        tests if it saves to a file or not
+        """
+        my_storage = FileStorage()
+        my_base = BaseModel()
+        my_base.save()
+        my_storage.reload()
+        key = my_base.__class__.__name__ + "." + my_base.id
+        self.assertTrue(key in my_storage.all())
+
+    def test_new(self):
+        """
+        tests if new updates the dictionaty stored
+        """
+        my_storage = FileStorage()
+        my_base = BaseModel()
+        my_base.name = "ephi"
+        key = my_base.__class__.__name__ + "." + my_base.id
+        self.assertFalse("name" in my_storage.all()[key])

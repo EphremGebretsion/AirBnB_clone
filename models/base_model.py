@@ -33,7 +33,8 @@ class BaseModel:
                             datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
                 else:
                     setattr(self, key, value)
-        storage.new(self)
+        if not kwargs:
+            storage.new(self)
 
     def __str__(self):
         """
