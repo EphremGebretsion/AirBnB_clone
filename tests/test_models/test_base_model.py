@@ -4,6 +4,7 @@ base_model module
 """
 from unittest import TestCase
 from datetime import datetime
+from models import storage
 from models.base_model import BaseModel
 
 
@@ -69,3 +70,23 @@ class TestBaseModle(TestCase):
         self.assertTrue(new_base.created_at == my_base.created_at)
         self.assertTrue(new_base.updated_at == my_base.updated_at)
         self.assertTrue(new_base.id == my_base.id)
+
+    def test_save(self):
+        """
+        checks if save(self) saves the file into a file
+        """
+        my_base = BaseModel()
+        key = my_base.__class__.__name__ + "." + my_base.id
+        self.assertTrue(key in storage.all())
+        my_base.save()
+        my_base2 = BaseModel()
+        key2 = my_base2.__class__.__name__ + "." + my_base2.id
+        storage.reload()
+        self.assertTrue(key2 not in storage.all())
+        my_base2.new = "new attr"
+        my_base2.save()
+        storage.reload()
+        my_all = storage.all()
+        self.assertTrue(key2 in my_all)
+        my_dict = my_all[key2]
+        self.assertTrue("new" in my_dict)
