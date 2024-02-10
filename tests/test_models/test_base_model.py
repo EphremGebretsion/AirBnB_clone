@@ -85,12 +85,13 @@ class TestBaseModle(TestCase):
         storage.reload()
         self.assertTrue(key2 not in storage.all())
         my_base2.new = "new attr"
+        storage.new(my_base2)
         my_base2.save()
         storage.reload()
         my_all = storage.all()
         self.assertTrue(key2 in my_all)
         my_dict = my_all[key2]
-        self.assertTrue("new" in my_dict)
+        self.assertTrue(hasattr(my_dict, "new"))
 
     def test_init_dict(self):
         """

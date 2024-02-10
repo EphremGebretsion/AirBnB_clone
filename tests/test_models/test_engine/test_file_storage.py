@@ -66,4 +66,4 @@ class TestFileStorage(TestCase):
         my_base = BaseModel()
         my_base.name = "ephi"
         key = my_base.__class__.__name__ + "." + my_base.id
-        self.assertFalse("name" in my_storage.all()[key])
+        self.assertTrue(hasattr(my_storage.all()[key], "name"))
