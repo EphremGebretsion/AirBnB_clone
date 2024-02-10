@@ -1,5 +1,7 @@
-""" This is a base model class for all the
-classes created in this project"""
+"""
+This is a base model class for all the
+classes created in this project
+"""
 from models import storage
 from datetime import datetime
 from uuid import uuid4
@@ -10,7 +12,8 @@ class BaseModel:
     defines all common attributes and methods for other classes
     """
     def __init__(self, *args, **kwargs):
-        """initializes
+        """
+        initializes
         id, created_at, updated_at
         and other attributes if specified
         """
@@ -29,21 +32,27 @@ class BaseModel:
         storage.new(self)
 
     def __str__(self):
-        """returns [<class name>] (<self.id>) <self.__dict__> format"""
+        """
+        returns [<class name>] (<self.id>) <self.__dict__> format
+        """
         return '[{}] ({}) {}'.format(self.__class__.__name__, self.id,
                                      self.__dict__)
 
     def save(self):
-        """updates the class
-        and changes the updated_at to the current time"""
+        """
+        updates the class
+        and changes the updated_at to the current time
+        """
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
 
     def to_dict(self):
-        """returns __dict__ but updates:
-        adds "__class__" key with class name
-        and modifies created_at and updated_at with isoformat"""
+        """
+        returns __dict__ but updates:
+        adds '__class__' key with class name
+        and modifies created_at and updated_at with isoformat
+        """
         new_dict = self.__dict__.copy()
         new_dict["__class__"] = self.__class__.__name__
         new_dict["created_at"] = self.created_at.isoformat()

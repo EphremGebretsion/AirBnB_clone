@@ -10,7 +10,9 @@ from models.base_model import BaseModel
 class TestBaseModle(TestCase):
 
     def test_init(self):
-        """tests for a cottect initialization"""
+        """
+        tests for a cottect initialization
+        """
         my_base = BaseModel()
         self.assertIsInstance(my_base, BaseModel)
         self.assertTrue(hasattr(my_base, "id"))
@@ -24,22 +26,28 @@ class TestBaseModle(TestCase):
         self.assertNotEqual(my_base.id, my_base1.id)
 
     def test_str(self):
-        """checks the __str__ return value is as needed"""
+        """
+        checks the __str__ return value is as needed
+        """
         my_base = BaseModel()
         my_str = '[{}] ({}) {}'.format(my_base.__class__.__name__,
                                        my_base.id, my_base.__dict__)
         self.assertEqual(my_base.__str__(), my_str)
 
     def test_save(self):
-        """checks if save changes the updated_at time"""
+        """
+        checks if save changes the updated_at time
+        """
         my_base = BaseModel()
         old = my_base.updated_at
         my_base.save()
         self.assertNotEqual(old, my_base.updated_at)
 
     def test_todict(self):
-        """tests to_dict whether it generates correct output
-        or not and to call it in __init__ constructor"""
+        """
+        tests to_dict whether it generates correct output
+        or not and to call it in __init__ constructor
+        """
         my_base = BaseModel()
         my_json = my_base.to_dict()
         self.assertIsInstance(my_json, dict)
