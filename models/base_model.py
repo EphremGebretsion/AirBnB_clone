@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 This is a base model class for all the
 classes created in this project
@@ -11,15 +12,18 @@ class BaseModel:
     """
     defines all common attributes and methods for other classes
     """
+
     def __init__(self, *args, **kwargs):
         """
         initializes
         id, created_at, updated_at
         and other attributes if specified
         """
+
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
+
         if kwargs:
             for key, value in kwargs.items():
                 if key == "__class__":
@@ -35,6 +39,7 @@ class BaseModel:
         """
         returns [<class name>] (<self.id>) <self.__dict__> format
         """
+
         return '[{}] ({}) {}'.format(self.__class__.__name__, self.id,
                                      self.__dict__)
 
@@ -43,6 +48,7 @@ class BaseModel:
         updates the class and saves to the file
         also changes the updated_at to the current time
         """
+
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
@@ -53,8 +59,10 @@ class BaseModel:
         adds '__class__' key with class name
         and modifies created_at and updated_at with isoformat
         """
+
         new_dict = self.__dict__.copy()
         new_dict["__class__"] = self.__class__.__name__
         new_dict["created_at"] = self.created_at.isoformat()
         new_dict["updated_at"] = self.updated_at.isoformat()
+
         return new_dict

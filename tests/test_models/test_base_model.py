@@ -13,6 +13,7 @@ class TestBaseModle(TestCase):
         """
         tests for a cottect initialization
         """
+
         my_base = BaseModel()
         self.assertIsInstance(my_base, BaseModel)
         self.assertTrue(hasattr(my_base, "id"))
@@ -29,6 +30,7 @@ class TestBaseModle(TestCase):
         """
         checks the __str__ return value is as needed
         """
+
         my_base = BaseModel()
         my_str = '[{}] ({}) {}'.format(my_base.__class__.__name__,
                                        my_base.id, my_base.__dict__)
@@ -38,6 +40,7 @@ class TestBaseModle(TestCase):
         """
         checks if save changes the updated_at time
         """
+
         my_base = BaseModel()
         old = my_base.updated_at
         my_base.save()
@@ -48,6 +51,7 @@ class TestBaseModle(TestCase):
         tests to_dict whether it generates correct output
         or not and to call it in __init__ constructor
         """
+
         my_base = BaseModel()
         my_json = my_base.to_dict()
         self.assertIsInstance(my_json, dict)

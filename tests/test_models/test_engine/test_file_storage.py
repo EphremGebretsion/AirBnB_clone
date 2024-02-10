@@ -10,11 +10,13 @@ class TestFileStorage(TestCase):
     """
     test for FileStorage that is used to serialization and decerialization
     """
+
     def test_attr(self):
         """
         tests for private class attributes
         whether they can be accessed or not
         """
+
         my_storage = FileStorage()
         with self.assertRaises(AttributeError):
             my_storage.__file_path
@@ -29,6 +31,7 @@ class TestFileStorage(TestCase):
         """
         tests if adding a new base instance affects the objects stored
         """
+
         my_storage = FileStorage()
         my_base = BaseModel()
         my_all = my_storage.all()

@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 serialization and decerialixation
 of json file to instances / instances to json file
@@ -10,6 +11,7 @@ class FileStorage:
     serialization and decerialization of instances and files
     to the specified path in this class
     """
+
     __file_path = "file.json"
     __objects = {}
 
@@ -25,6 +27,7 @@ class FileStorage:
         sets in __objects the obj with key <obj class name>.id
         used as adding and updating the __objects
         """
+
         key = obj.__class__.__name__ + "." + obj.id
         FileStorage.__objects[key] = obj.to_dict()
 
@@ -33,6 +36,7 @@ class FileStorage:
         serializes __objects that has been added
         to the JSON file (path: __file_path)
         """
+
         with open(FileStorage.__file_path, mode="w") as my_file:
             json.dump(FileStorage.__objects, my_file)
 
@@ -42,6 +46,7 @@ class FileStorage:
         the JSON file (__file_path) exists ; otherwise,
         do nothing. If the file doesn’t exist,
         """
+
         try:
             with open(FileStorage.__file_path, mode="r") as my_file:
                 FileStorage.__objects = json.load(my_file)
