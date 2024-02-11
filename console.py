@@ -20,10 +20,15 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """used to exit when called or when interupt key entered"""
+        print("")
         return True
 
+    def help_EOF(self):
+        """prints help for EOF comand"""
+        print("exits when EOF commond or ctrl + D is encountered\n")
+
     def help_quit(self):
-        """help resolt for quit comman"""
+        """print a help for quit command"""
         print("Quit command to exit the program\n")
 
     def emptyline(self):
