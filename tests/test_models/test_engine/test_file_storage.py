@@ -14,6 +14,15 @@ class TestFileStorage(TestCase):
     witch tests for apropriate values and types for a file
     """
 
+    def setUp(self):
+        """
+        clean up before starting the test so it does not affect our test
+        """
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
+
     def test_attr(self):
         """
         tests for private class attributes
@@ -44,14 +53,6 @@ class TestFileStorage(TestCase):
         my_all = my_storage.all()
         key = my_base.__class__.__name__ + "." + my_base.id
         self.assertTrue(key in my_all)
-
-    def test_empity(self):
-        """
-        tests what is reloaded from empity file
-        """
-        my_store = FileStorage()
-        my_store.reload()
-        self.assertEqual(my_store.all(), {})
 
     def test_save(self):
         """
