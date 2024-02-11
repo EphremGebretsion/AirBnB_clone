@@ -21,11 +21,6 @@ class TestFileStorage(TestCase):
             os.remove("file.json")
         except:
             pass
-        my_keys = []
-        for key in storage.all().keys():
-            my_keys.append(key)
-        for key in my_keys:
-            del FileStorage._FileStorage__objects[key]
 
     def test_attr(self):
         """
