@@ -25,11 +25,11 @@ class TestFileStorage(TestCase):
             pass
 
         my_keys = []
-        for k in storage.all().keys():
-            my_keys.append(k)
+        for key in storage.all().keys():
+            my_keys.append(key)
 
-        for k in my_keys:
-            del FileStorage._FileStorage__objects[k]
+        for key in my_keys:
+            del FileStorage._FileStorage__objects[key]
 
     def test_attr(self):
         """
@@ -61,14 +61,6 @@ class TestFileStorage(TestCase):
         my_all = my_storage.all()
         key = my_base.__class__.__name__ + "." + my_base.id
         self.assertTrue(key in my_all)
-
-    def test_empity(self):
-        """
-        tests what is reloaded from empity file
-        """
-        my_store = FileStorage()
-        my_store.reload()
-        self.assertEqual(my_store.all(), {})
 
     def test_save(self):
         """
@@ -102,6 +94,13 @@ class TestFileStorage(TestCase):
         self.assertTrue(hasattr(my_storage.all()[key], "age"))
         my_storage.new(my_base)
         self.assertTrue(key in my_storage.all())
+
+    def test_empity(self):
+        """
+        tests what is reloaded from empity file
+        """
+        storage.reload()
+        self.assertEqual(storage.all(), {})
 
     def test_type(self):
         """
