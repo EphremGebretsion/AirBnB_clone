@@ -16,12 +16,12 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, line):
         """quit command to exit the program"""
-        return True
+        exit()
 
     def do_EOF(self, line):
         """used to exit when called or when interupt key entered"""
         print("")
-        return True
+        exit()
 
     def help_EOF(self):
         """prints help for EOF comand"""
