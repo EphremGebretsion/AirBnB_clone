@@ -17,7 +17,10 @@ class TestFileStorage(TestCase):
 
     def teatDown(self):
         """clean up after each test"""
-        pass
+        try:
+            os.remove("file.json")
+        except:
+            pass
 
     def test_attr(self):
         """
