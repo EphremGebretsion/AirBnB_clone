@@ -4,6 +4,7 @@ using each attribute and methods
 """
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from models import storage
 from unittest import TestCase
 import os
 
@@ -13,6 +14,22 @@ class TestFileStorage(TestCase):
     test for FileStorage that is used to serialization and decerialization
     witch tests for apropriate values and types for a file
     """
+
+    def tearDown(self):
+        """
+        clean up before starting the test so it does not affect our test
+        """
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
+
+        my_keys = []
+        for k in storage.all().keys():
+            my_keys.append(k)
+
+        for k in my_keys:
+            del FileStorage._FileStorage__objects[k]
 
     def test_attr(self):
         """
