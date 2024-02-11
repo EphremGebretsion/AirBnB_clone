@@ -1,5 +1,6 @@
 """
 tests the storage engine file_storage
+using each attribute and methods
 """
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
@@ -10,6 +11,7 @@ import os
 class TestFileStorage(TestCase):
     """
     test for FileStorage that is used to serialization and decerialization
+    witch tests for apropriate values and types for a file
     """
 
     def test_attr(self):
@@ -27,6 +29,10 @@ class TestFileStorage(TestCase):
             FileStorage.__file_path
         with self.assertRaises(AttributeError):
             FileStorage.__objects()
+        self.assertTrue(hasattr(my_storage, "all"))
+        self.assertTrue(hasattr(my_storage, "new"))
+        self.assertTrue(hasattr(my_storage, "save"))
+        self.assertTrue(hasattr(my_storage, "reload"))
 
     def test_fun(self):
         """
@@ -61,17 +67,22 @@ class TestFileStorage(TestCase):
         my_storage.reload()
         key = my_base2.__class__.__name__ + "." + my_base2.id
         self.assertFalse(key in my_storage.all())
+        my_storage.new(my_base2)
+        self.assertTrue(key in my_storage.all())
 
-    def test_new(self):
+    def test_newattr(self):
         """
-        tests if new updates the dictionaty stored
+        tests if new attr updates the dictionaty stored
+        if it works the attributes should be included
         """
         my_storage = FileStorage()
         my_base = BaseModel()
         my_base.name = "ephi"
+        my_base.age = 23
         key = my_base.__class__.__name__ + "." + my_base.id
         self.assertTrue(key in my_storage.all())
         self.assertTrue(hasattr(my_storage.all()[key], "name"))
+        self.assertTrue(hasattr(my_storage.all()[key], "age"))
         my_storage.new(my_base)
         self.assertTrue(key in my_storage.all())
 
