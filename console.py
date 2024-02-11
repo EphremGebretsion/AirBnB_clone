@@ -11,6 +11,9 @@ class HBNBCommand(cmd.Cmd):
     """
     my custom CLI class to use
     """
+    ruler = '='
+    doc_header = 'Documented commands (type help <topic>):'
+
     if sys.stdin.isatty():
         prompt = '(hbnb) '
     else:
