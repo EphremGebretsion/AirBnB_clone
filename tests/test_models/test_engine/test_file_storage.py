@@ -17,7 +17,10 @@ class TestFileStorage(TestCase):
 
     def tearDown(self):
         """clean up after each test"""
-        pass
+        try:
+            my_var = 90
+        except:
+            pass
 
     def test_attr(self):
         """
