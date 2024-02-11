@@ -21,7 +21,7 @@ class TestFileStorage(TestCase):
         """
         try:
             os.remove("file.json")
-        except FileNotFoundError:
+        except:
             pass
 
         my_keys = []
