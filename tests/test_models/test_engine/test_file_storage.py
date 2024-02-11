@@ -22,6 +22,9 @@ class TestFileStorage(TestCase):
         except:
             pass
         d = FileStorage._FileStorage__objects
+        my_keys = []
+        for key in storage.all().keys():
+            my_keys.append(key)
 
     def test_attr(self):
         """
