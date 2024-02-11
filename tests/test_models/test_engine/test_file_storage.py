@@ -4,7 +4,6 @@ using each attribute and methods
 """
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
-from models import storage
 from unittest import TestCase
 import os
 
@@ -14,22 +13,6 @@ class TestFileStorage(TestCase):
     test for FileStorage that is used to serialization and decerialization
     witch tests for apropriate values and types for a file
     """
-
-    def tearDown(self):
-        """
-        clean up before starting the test so it does not affect our test
-        """
-        try:
-            os.remove("file.json")
-        except FileNotFoundError:
-            pass
-
-        my_keys = []
-        for k in storage.all().keys():
-            my_keys.append(k)
-
-        for k in my_keys:
-            del FileStorage._FileStorage__objects[k]
 
     def test_attr(self):
         """
@@ -61,6 +44,14 @@ class TestFileStorage(TestCase):
         my_all = my_storage.all()
         key = my_base.__class__.__name__ + "." + my_base.id
         self.assertTrue(key in my_all)
+
+    def test_empity(self):
+        """
+        tests what is reloaded from empity file
+        """
+        my_store = FileStorage()
+        my_store.reload()
+        self.assertEqual(my_store.all(), {})
 
     def test_save(self):
         """
@@ -94,13 +85,6 @@ class TestFileStorage(TestCase):
         self.assertTrue(hasattr(my_storage.all()[key], "age"))
         my_storage.new(my_base)
         self.assertTrue(key in my_storage.all())
-
-    def test_empity(self):
-        """
-        tests what is reloaded from empity file
-        """
-        storage.reload()
-        self.assertEqual(storage.all(), {})
 
     def test_type(self):
         """
