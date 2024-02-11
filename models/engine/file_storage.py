@@ -38,6 +38,7 @@ class FileStorage:
         """
 
         serializable_obj = {}
+
         for k in FileStorage.__objects.keys():
             serializable_obj[k] = FileStorage.__objects[k].to_dict()
 
@@ -56,8 +57,10 @@ class FileStorage:
             deserialized_obj = {}
             with open(FileStorage.__file_path, mode="r") as my_file:
                 dict_obj = json.load(my_file)
+
                 for k in dict_obj.keys():
                     deserialized_obj[k] = BaseModel(**dict_obj[k])
                     FileStorage.__objects = deserialized_obj
+
         except FileNotFoundError:
             pass

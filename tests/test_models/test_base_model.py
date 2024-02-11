@@ -10,6 +10,10 @@ from models.engine.file_storage import FileStorage
 
 
 class TestBaseModle(TestCase):
+    """
+    tests our BaseModel class for the correctness of its attribute,
+    storage and method
+    """
 
     def test_init(self):
         """
