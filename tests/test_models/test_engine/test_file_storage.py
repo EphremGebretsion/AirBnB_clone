@@ -15,6 +15,10 @@ class TestFileStorage(TestCase):
     witch tests for apropriate values and types for a file
     """
 
+    def teatDown(self):
+        """clean up after each test"""
+        pass
+
     def test_attr(self):
         """
         tests for private class attributes
