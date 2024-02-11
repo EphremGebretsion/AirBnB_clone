@@ -18,7 +18,7 @@ class TestFileStorage(TestCase):
     def tearDown(self):
         """clean up after each test"""
         try:
-            my_var = 90
+            os.system("rm file.json")
         except:
             pass
 
