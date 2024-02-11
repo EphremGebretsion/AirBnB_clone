@@ -11,13 +11,16 @@ class HBNBCommand(cmd.Cmd):
     """
     my custom CLI class to use
     """
-    ruler = '='
-    doc_header = 'Documented commands (type help <topic>):'
 
     if sys.stdin.isatty():
         prompt = '(hbnb) '
     else:
         prompt = ''
+
+    def preloop(self):
+        """adds prompt before loop starts if not in stdin"""
+        if not sys.stdin.isatty():
+            print('(hbnb) ')
 
     def do_quit(self, line):
         """quit command to exit the program"""
