@@ -16,22 +16,12 @@ class TestFileStorage(TestCase):
     """
 
     def teatDown(self):
-        """
-        clean up after each test
-        tests
-        if the 
-        problem is
-        the number 
-        of 
-        lines
-        lets
-        see
-        ha
-        """
+        """clean up after each test"""
         try:
             os.remove("file.json")
         except:
             pass
+        d = FileStorage._FileStorage__objects
 
     def test_attr(self):
         """
