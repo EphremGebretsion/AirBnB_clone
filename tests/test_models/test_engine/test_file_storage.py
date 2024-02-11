@@ -29,7 +29,7 @@ class TestFileStorage(TestCase):
             my_keys.append(key)
 
         for key in my_keys:
-            del FileStorage._FileStorage__objects[key]
+            del storage._FileStorage__objects[key]
 
     def test_attr(self):
         """
