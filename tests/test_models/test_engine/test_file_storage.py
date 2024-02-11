@@ -6,7 +6,6 @@ from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models import storage
 from unittest import TestCase
-from os import remove
 
 
 class TestFileStorage(TestCase):
@@ -17,10 +16,11 @@ class TestFileStorage(TestCase):
 
     def tearDown(self):
         """clean up after each test"""
-        try:
-            remove('file.json')
-        except:
-            pass
+        my_keys = []
+        for key in storage.all().keys():
+            my_keys.append(key)
+        for key in my_keys:
+            del FileStorage._FileStorage__objects[key]
 
     def test_attr(self):
         """
