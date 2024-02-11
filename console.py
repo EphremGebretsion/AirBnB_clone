@@ -3,6 +3,7 @@
 this script create CLI class for making a custom command interpriter
 and starts the CLI when excuted
 """
+import sys
 import cmd
 
 
@@ -10,9 +11,10 @@ class HBNBCommand(cmd.Cmd):
     """
     my custom CLI class to use
     """
-    doc_header = 'Documented Commands (type halp <topic>):'
-    ruler = '='
-    prompt = '(hbnb) '
+    if sys.stdin.isatty():
+        prompt = '(hbnb) '
+    else:
+        prompt = ''
 
     def do_quit(self, line):
         """quit command to exit the program"""
