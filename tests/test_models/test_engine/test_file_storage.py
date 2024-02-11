@@ -16,7 +16,18 @@ class TestFileStorage(TestCase):
     """
 
     def teatDown(self):
-        """clean up after each test"""
+        """
+        clean up after each test
+        tests
+        if the 
+        problem is
+        the number 
+        of 
+        lines
+        lets
+        see
+        ha
+        """
         try:
             os.remove("file.json")
         except:
