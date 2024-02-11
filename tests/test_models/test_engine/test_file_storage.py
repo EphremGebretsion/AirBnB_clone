@@ -6,6 +6,7 @@ from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 from models import storage
 from unittest import TestCase
+import os
 
 
 class TestFileStorage(TestCase):
@@ -21,6 +22,11 @@ class TestFileStorage(TestCase):
             my_keys.append(key)
         for key in my_keys:
             del FileStorage._FileStorage__objects[key]
+
+        try:
+            os.remove(FileStorage._FileStorage__file_path)
+        except FileNotFoundError:
+            pass
 
     def test_attr(self):
         """
