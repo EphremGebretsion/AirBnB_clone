@@ -15,15 +15,6 @@ class TestFileStorage(TestCase):
     witch tests for apropriate values and types for a file
     """
 
-    def tearDown(self):
-        """
-        clean up before starting the test so it does not affect our test
-        """
-        try:
-            os.remove("file.json")
-        except:
-            pass
-
     def test_attr(self):
         """
         tests for private class attributes
