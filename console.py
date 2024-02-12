@@ -281,10 +281,12 @@ class HBNBCommand(cmd.Cmd):
         command_all = {}
         command_count = {}
         command_show = {}
+        command_destroy = {}
         for key in HBNBCommand.class_dict.keys():
             command_all[key + "." + "all()"] = key
             command_count[key + "." + "count()"] = key
             command_show[key + "." + "show("] = key
+            command_destroy[key + "." + "destroy("] = key
         found = False
         if line in command_all.keys():
             print("[", end="")
@@ -307,6 +309,7 @@ class HBNBCommand(cmd.Cmd):
             print(count)
             found = True
         show = False
+        destroy = False
         class_name = None
         leng = 0
         if not found:
@@ -316,17 +319,36 @@ class HBNBCommand(cmd.Cmd):
                     leng = len(key)
                     show = True
                     break
+            if not show:
+                for key, value in command_destroy.items():
+                    if key in line:
+                        class_name = value
+                        leng = len(key)
+                        destroy = True
+                        break
         if show:
             if len(line) > leng + 1:
                 if line[len(line) - 1] != ")":
                     show = False
             else:
                 show = False
-        if show:
-            last = len(line) - 1
-            instance_id = line[leng:last]
-            HBNBCommand.do_show(self, class_name + " " + instance_id)
-            found = True
+            if show:
+                last = len(line) - 1
+                instance_id = line[leng:last]
+                HBNBCommand.do_show(self, class_name + " " + instance_id)
+                found = True
+
+        if destroy:
+            if len(line) > leng + 1:
+                if line[len(line) - 1] != ")":
+                    destroy = False
+            else:
+                destroy = False
+            if destroy:
+                last = len(line) - 1
+                instance_id = line[leng:last]
+                HBNBCommand.do_destroy(self, class_name + " " + instance_id)
+                found = True
         if not found:
             print("** Unkown syntax: {}".format(line))
 
