@@ -280,9 +280,12 @@ class HBNBCommand(cmd.Cmd):
         """
         command_all = {}
         command_count = {}
+        command_show = {}
         for key in HBNBCommand.class_dict.keys():
             command_all[key + "." + "all()"] = key
             command_count[key + "." + "count()"] = key
+            command_show[key + "." + "show("] = key
+        found = False
         if line in command_all.keys():
             print("[", end="")
             class_name = command_all[line]
@@ -294,6 +297,7 @@ class HBNBCommand(cmd.Cmd):
                     print(value, end="")
                     flag = True
             print("]")
+            found = True
         elif line in command_count.keys():
             class_name = command_count[line]
             count = 0
@@ -301,7 +305,29 @@ class HBNBCommand(cmd.Cmd):
                 if class_name == value.__class__.__name__:
                     count += 1
             print(count)
-        else:
+            found = True
+        show = False
+        class_name = None
+        leng = 0
+        if not found:
+            for key, value in command_show.items():
+                if key in line:
+                    class_name = value
+                    leng = len(key)
+                    show = True
+                    break
+        if show:
+            if len(line) > leng + 1:
+                if line[len(line) - 1] != ")":
+                    show = False
+            else:
+                show = False
+        if show:
+            last = len(line) - 1
+            instance_id = line[leng:last]
+            HBNBCommand.do_show(self, class_name + " " + instance_id)
+            found = True
+        if not found:
             print("** Unkown syntax: {}".format(line))
 
 
