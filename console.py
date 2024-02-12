@@ -273,6 +273,28 @@ class HBNBCommand(cmd.Cmd):
         use = "Usage: update <class name> <instance id> <attr> <value>\n"
         print(info, use)
 
+    def default(self, line):
+        """
+        checks if the command entered is correct before throwing
+        unknown command
+        """
+        command_all = {}
+        for key in HBNBCommand.class_dict.keys():
+            command_all[key + "." + "all()"] = key
+        if line in command_all.keys():
+            print("[", end="")
+            class_name = command_all[line]
+            flag = False
+            for key, value in storage.all().items():
+                if class_name == value.__class__.__name__:
+                    if flag:
+                        print(", ", end="")
+                    print(value, end="")
+                    flag = True
+            print("]")
+        else:
+            print("** Unkown syntax: {}".format(line))
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
