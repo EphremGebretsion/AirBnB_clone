@@ -6,6 +6,11 @@ and starts the CLI when excuted
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 import sys
 import cmd
 
@@ -58,7 +63,9 @@ class HBNBCommand(cmd.Cmd):
     my custom CLI class to use
     """
 
-    class_dict = {"BaseModel": BaseModel, "User": User}
+    class_dict = {"BaseModel": BaseModel, "User": User, "State": State,
+                  "City": City, "Amenity": Amenity, "Place": Place,
+                  "Review": Review}
 
     if sys.stdin.isatty():
         prompt = '(hbnb) '
