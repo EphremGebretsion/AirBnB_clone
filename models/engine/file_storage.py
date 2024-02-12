@@ -53,13 +53,16 @@ class FileStorage:
         """
 
         from models.base_model import BaseModel
+        from models.user import User
+        type_dict = {"BaseModel": BaseModel, "User": User}
         try:
             deserialized_obj = {}
             with open(FileStorage.__file_path, mode="r") as my_file:
                 dict_obj = json.load(my_file)
 
                 for k in dict_obj.keys():
-                    deserialized_obj[k] = BaseModel(**dict_obj[k])
+                    my_class = type_dict[dict_obj[k]["__class__"]]
+                    deserialized_obj[k] = my_class(**dict_obj[k])
                     FileStorage.__objects = deserialized_obj
 
         except FileNotFoundError:

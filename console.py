@@ -5,6 +5,7 @@ and starts the CLI when excuted
 """
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 import sys
 import cmd
 
@@ -57,6 +58,8 @@ class HBNBCommand(cmd.Cmd):
     my custom CLI class to use
     """
 
+    class_dict = {"BaseModel": BaseModel, "User": User}
+
     if sys.stdin.isatty():
         prompt = '(hbnb) '
     else:
@@ -92,10 +95,11 @@ class HBNBCommand(cmd.Cmd):
         """creates an instance of a class and stores it in json file"""
         if not class_name:
             print("** class name missing **")
-        elif class_name != "BaseModel":
+        elif class_name not in HBNBCommand.class_dict.keys():
             print("** class doesn't exist **")
         else:
-            new_instance = BaseModel()
+            my_class = HBNBCommand.class_dict[class_name]
+            new_instance = my_class()
             new_instance.save()
             print(new_instance.id)
 
@@ -119,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
             instance_id = args[1]
         if not class_name:
             print("** class name missing **")
-        elif class_name != "BaseModel":
+        elif class_name not in HBNBCommand.class_dict.keys():
             print("** class doesn't exist **")
         elif not instance_id:
             print("** instance id missing **")
@@ -150,7 +154,7 @@ class HBNBCommand(cmd.Cmd):
             instance_id = args[1]
         if not class_name:
             print("** class name missing **")
-        elif class_name != "BaseModel":
+        elif class_name not in HBNBCommand.class_dict.keys():
             print("** class doesn't exist **")
         elif not instance_id:
             print("** instance id missing **")
@@ -182,7 +186,7 @@ class HBNBCommand(cmd.Cmd):
             for key, value in storage.all().items():
                 my_list.append(value.__str__())
             print(my_list)
-        elif class_name != "BaseModel":
+        elif class_name not in HBNBCommand.class_dict.keys():
             print("** class doesn't exist **")
         else:
             my_list = []
@@ -219,7 +223,7 @@ class HBNBCommand(cmd.Cmd):
             value = args[3]
         if not class_name:
             print("** class name missing **")
-        elif class_name != "BaseModel":
+        elif class_name not in HBNBCommand.class_dict.keys():
             print("** class doesn't exist **")
         elif not instance_id:
             print("** instance id missing **")
