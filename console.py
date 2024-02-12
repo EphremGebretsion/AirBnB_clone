@@ -13,6 +13,7 @@ from models.place import Place
 from models.review import Review
 import sys
 import cmd
+import json
 
 
 def split_str(line):
@@ -282,11 +283,13 @@ class HBNBCommand(cmd.Cmd):
         command_count = {}
         command_show = {}
         command_destroy = {}
+        command_update = {}
         for key in HBNBCommand.class_dict.keys():
             command_all[key + "." + "all()"] = key
             command_count[key + "." + "count()"] = key
             command_show[key + "." + "show("] = key
             command_destroy[key + "." + "destroy("] = key
+            command_update[key + "." + "update("] = key
         found = False
         if line in command_all.keys():
             print("[", end="")
@@ -310,6 +313,7 @@ class HBNBCommand(cmd.Cmd):
             found = True
         show = False
         destroy = False
+        update = False
         class_name = None
         leng = 0
         if not found:
@@ -325,6 +329,13 @@ class HBNBCommand(cmd.Cmd):
                         class_name = value
                         leng = len(key)
                         destroy = True
+                        break
+            if not show or not destroy:
+                for key, value in command_update.items():
+                    if key in line:
+                        class_name = value
+                        leng = len(key)
+                        update = True
                         break
         if show:
             if len(line) > leng + 1:
@@ -349,6 +360,34 @@ class HBNBCommand(cmd.Cmd):
                 instance_id = line[leng:last]
                 HBNBCommand.do_destroy(self, class_name + " " + instance_id)
                 found = True
+
+        if update:
+            args = None
+            if len(line) > leng + 1:
+                if line[len(line) - 1] != ")":
+                    update = False
+            else:
+                update = False
+            if update:
+                last = len(line) - 1
+                args = line[leng:last]
+                args = args.replace("'", '"')
+                if args[len(args) - 1] == "}":
+                    splited = args.split("{")
+                    instance_id = splited[0]
+                    instance_id = instance_id.replace(', ', '')
+                    instance_id = instance_id.replace(',', '')
+                    instance_id = instance_id.strip('"')
+                    my_dict = json.loads("{" + splited[1])
+                    for key, value in my_dict.items():
+                        line = class_name + " " + instance_id + " " + key + " "
+                        line += str(value)
+                        HBNBCommand.do_update(self, line)
+                    found = True
+                else:
+                    line = class_name + " " + args.replace(", ", " ")
+                    HBNBCommand.do_update(self, line)
+                    found = True
         if not found:
             print("** Unkown syntax: {}".format(line))
 
