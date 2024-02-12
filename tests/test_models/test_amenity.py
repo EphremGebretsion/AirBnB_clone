@@ -16,6 +16,10 @@ class TestAmenity(TestCase):
         """checks attribute existance"""
         self.assertTrue(hasattr(Amenity, "name"))
 
+    def test_value(self):
+        """test for correct initial value of Amenity attributes"""
+        self.assertTrue(Amenity.name == "")
+
     def test_store(self):
         """tests if instance is added to storage"""
         my_amenity = Amenity()

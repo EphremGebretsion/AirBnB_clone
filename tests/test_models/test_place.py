@@ -26,6 +26,20 @@ class TestPlace(TestCase):
         self.assertTrue(hasattr(Place, "longitude"))
         self.assertTrue(hasattr(Place, "amenity_ids"))
 
+    def test_value(self):
+        """test for correct value of each Place public attributes"""
+        self.assertTrue(Place.city_id == "")
+        self.assertTrue(Place.user_id == "")
+        self.assertTrue(Place.name == "")
+        self.assertTrue(Place.description == "")
+        self.assertTrue(Place.number_rooms == 0)
+        self.assertTrue(Place.number_bathrooms == 0)
+        self.assertTrue(Place.max_guest == 0)
+        self.assertTrue(Place.price_by_night == 0)
+        self.assertTrue(Place.latitude == 0.0)
+        self.assertTrue(Place.longitude == 0.0)
+        self.assertTrue(Place.amenity_ids == [])
+
     def test_store(self):
         """tests if instance is added to storage"""
         my_place = Place()

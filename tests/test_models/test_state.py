@@ -16,6 +16,10 @@ class TestState(TestCase):
         """checks the attribute it has"""
         self.assertTrue(hasattr(State, "name"))
 
+    def test_value(self):
+        """tests for correct value of State public class attribute"""
+        self.assertTrue(State.name == "")
+
     def test_store(self):
         """checks if it is properly stored"""
         my_state = State()

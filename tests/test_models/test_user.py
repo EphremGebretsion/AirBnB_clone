@@ -39,6 +39,13 @@ class TestUser(TestCase):
         my_user1 = User()
         self.assertNotEqual(my_user.id, my_user1.id)
 
+    def test_value(self):
+        """test for each attribute initial values"""
+        self.assertTrue(User.email == "")
+        self.assertTrue(User.password == "")
+        self.assertTrue(User.first_name == "")
+        self.assertTrue(User.last_name == "")
+
     def test_store(self):
         """tests if instance is added when created"""
         my_user = User()

@@ -18,6 +18,12 @@ class TestCity(TestCase):
         self.assertTrue(hasattr(Review, "user_id"))
         self.assertTrue(hasattr(Review, "text"))
 
+    def test_value(self):
+        """tests correct value of Review public class attributes"""
+        self.assertTrue(Review.place_id == "")
+        self.assertTrue(Review.user_id == "")
+        self.assertTrue(Review.text == "")
+
     def test_store(self):
         """tests if instance is added to storage"""
         my_review = Review()

@@ -17,6 +17,11 @@ class TestCity(TestCase):
         self.assertTrue(hasattr(City, "state_id"))
         self.assertTrue(hasattr(City, "name"))
 
+    def test_value(self):
+        """tests for corect initial value of class"""
+        self.assertTrue(City.state_id == "")
+        self.assertTrue(City.name == "")
+
     def test_store(self):
         """tests if instance is added to storage"""
         my_city = City()
