@@ -279,8 +279,10 @@ class HBNBCommand(cmd.Cmd):
         unknown command
         """
         command_all = {}
+        command_count = {}
         for key in HBNBCommand.class_dict.keys():
             command_all[key + "." + "all()"] = key
+            command_count[key + "." + "count()"] = key
         if line in command_all.keys():
             print("[", end="")
             class_name = command_all[line]
@@ -292,6 +294,13 @@ class HBNBCommand(cmd.Cmd):
                     print(value, end="")
                     flag = True
             print("]")
+        elif line in command_count.keys():
+            class_name = command_count[line]
+            count = 0
+            for key, value in storage.all().items():
+                if class_name == value.__class__.__name__:
+                    count += 1
+            print(count)
         else:
             print("** Unkown syntax: {}".format(line))
 
