@@ -7,6 +7,7 @@ from datetime import datetime
 from models import storage
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from os import remove
 
 
 class TestBaseModle(TestCase):
@@ -14,6 +15,19 @@ class TestBaseModle(TestCase):
     tests our BaseModel class for the correctness of its attribute,
     storage and method
     """
+
+    def tearDown(self):
+        """clean up after eatch test"""
+        del_keys = []
+        for key in storage.all():
+            del_keys.append(key)
+        for key in del_keys:
+            del storage.all()[key]
+
+        try:
+            remove(FileStorage._FileStorage__file_path)
+        except FileNotFoundError:
+            pass
 
     def test_init(self):
         """
